@@ -1,0 +1,85 @@
+<style>
+	.jstree a:hover{
+		background-color: #eee;
+	}
+	
+</style>
+
+<div id="demo2" class="demo"></div>
+<script type="text/javascript" class="source">
+$(function () {
+	$("#demo2").jstree({ 
+		"json_data" : {
+			"ajax" : {
+				"url" : "/menus.json",
+				"data" : function (n) { 
+					return { id : n.attr ? n.attr("id") : 0 }; 
+				}
+			}
+		},
+		"dnd" : {
+		    "drop_finish" : function () {
+		        alert("DROP");
+		    },
+		    "drag_check" : function (data) {
+		        if(data.r.attr("id") == "phtml_1") {
+		            return false;
+		        }
+		        return {
+		            after : false,
+		        before : false,
+		            inside : true
+		        };
+		    },
+		    "drag_finish" : function (data) {
+		        alert("DRAG OK");
+		    }
+		},
+		"plugins" : [ "themes", "json_data" ]
+	});
+});
+</script>
+
+<!-- 
+<hr />
+<div id="demo1" class="demo">
+	<ul>
+		<li id="phtml_1">
+			<a href="#">Root node 1</a>
+			<ul>
+				<li id="phtml_2">
+					<a href="#">Child node 1</a>
+				</li>
+				<li id="phtml_3">
+					<a href="#">Child node 2</a>
+				</li>
+			</ul>
+		</li>
+		<li id="phtml_4">
+			<a href="#">Root node 2</a>
+		</li>
+	</ul>
+</div>
+
+
+
+<script type="text/javascript" class="source">
+$(function () {
+	$("#create_1").click(function () { 
+		$("#demo1").jstree("create"); 
+	});
+	$("#create_2").click(function () { 
+		$("#demo1").jstree("create","#phtml_1","first","Enter a new name"); 
+	});
+	$("#create_3").click(function () { 
+		$("#demo1").jstree("create",-1,false,"No rename",false,true); 
+	});
+	$("#demo1").jstree({ 
+		"ui" : {
+			"initially_select" : [ "phtml_2" ]
+		},
+		"core" : { "initially_open" : [ "phtml_1" ] },
+		"plugins" : [ "themes", "html_data", "ui", "crrm" ]
+	});
+});
+</script> -->
